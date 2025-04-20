@@ -1,0 +1,41 @@
+{
+  "name": "omu-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@zxing/library": "^0.21.3",
+    "axios": "^1.8.4",
+    "firebase": "^11.6.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:4000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1"
+  }
+}
