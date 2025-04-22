@@ -1,7 +1,8 @@
+// src/services/api.ts
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api", // Brukes sammen med proxy i vite.config.ts
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:4000/api",
   withCredentials: true,
 });
 

@@ -5,18 +5,18 @@ interface Props {
   onLogin: (bruker: {
     brukernavn: string;
     rolle: string;
-    verkstedId: string;
+    firmaId: string;
   }) => void;
 }
 
-type LoginResponse = {
+interface LoginResponse {
   firmaId: string;
   brukernavn: string;
   rolle: string;
-};
+}
 
 export default function Login({ onLogin }: Props) {
-  const [verkstedId, setVerkstedId] = useState("");
+  const [firmaId, setFirmaId] = useState("");
   const [brukernavn, setBrukernavn] = useState("");
   const [passord, setPassord] = useState("");
   const [feil, setFeil] = useState("");
@@ -24,22 +24,23 @@ export default function Login({ onLogin }: Props) {
   const handleLogin = async () => {
     setFeil("");
 
-    if (!verkstedId || !brukernavn || !passord) {
+    if (!firmaId || !brukernavn || !passord) {
       setFeil("Vennligst fyll ut alle felt!");
       return;
     }
 
     try {
       const response = await api.post<LoginResponse>("/auth/login", {
-        firmaId: verkstedId.trim().toLowerCase(),
+        firmaId: firmaId.trim().toLowerCase(),
         brukernavn: brukernavn.trim(),
-        passord,
+        passord
       });
 
+      const data = response.data;
       onLogin({
-        brukernavn: response.data.brukernavn,
-        rolle: response.data.rolle,
-        verkstedId: response.data.firmaId,
+        brukernavn: data.brukernavn,
+        rolle: data.rolle,
+        firmaId: data.firmaId
       });
     } catch (err: any) {
       const msg = err.response?.data?.message || "Innlogging feilet. Prøv igjen.";
@@ -53,8 +54,8 @@ export default function Login({ onLogin }: Props) {
       <h2>🔐 Logg inn</h2>
       <input
         placeholder="Firma-ID"
-        value={verkstedId}
-        onChange={(e) => setVerkstedId(e.target.value)}
+        value={firmaId}
+        onChange={(e) => setFirmaId(e.target.value)}
       />
       <input
         placeholder="Brukernavn"
@@ -68,7 +69,6 @@ export default function Login({ onLogin }: Props) {
         onChange={(e) => setPassord(e.target.value)}
       />
       <button onClick={handleLogin}>Logg inn</button>
-
       {feil && <p style={{ color: "red", marginTop: "1rem" }}>{feil}</p>}
     </div>
   );
